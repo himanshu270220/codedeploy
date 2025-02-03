@@ -1,21 +1,20 @@
 #!/bin/bash
 
-echo "Upgrading Node.js to version 18..."
+echo "Removing old Node.js and conflicting packages..."
+sudo apt-get remove -y nodejs libnode-dev
 
-# Remove the old version of Node.js
-sudo apt-get remove -y nodejs
-
-# Install the Node.js 18.x repository
+echo "Adding Node.js 18.x repository..."
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 
-# Install Node.js
+echo "Installing Node.js..."
 sudo apt-get install -y nodejs
 
-# Verify the installed version
+echo "Verifying Node.js and npm versions..."
 node -v
 npm -v
 
 echo "Installing application dependencies..."
 cd /home/ubuntu/nodejs-app || exit
 npm install
+
 
