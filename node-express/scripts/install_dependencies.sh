@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e  # Exit immediately if any command fails
 
 echo "Removing old Node.js and conflicting packages..."
 sudo apt-get remove -y nodejs libnode-dev
@@ -15,6 +16,8 @@ npm -v
 
 echo "Installing application dependencies..."
 cd /home/ubuntu/nodejs-app || exit
-npm install
+npm install || { echo "npm install failed"; exit 1; }
+
+echo "install_dependencies script completed."
 
 
