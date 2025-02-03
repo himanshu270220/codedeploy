@@ -1,19 +1,21 @@
 #!/bin/bash
-cd /home/ubuntu/nodejs-app || exit
 
-echo "Installing Node.js and npm..."
-sudo apt-get update -y
-sudo apt-get install -y nodejs npm
+echo "Upgrading Node.js to version 18..."
 
-# Verify Node.js and npm installation
+# Remove the old version of Node.js
+sudo apt-get remove -y nodejs
+
+# Install the Node.js 18.x repository
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+
+# Install Node.js
+sudo apt-get install -y nodejs
+
+# Verify the installed version
 node -v
 npm -v
 
-echo "Fixing permissions for the application directory..."
-# Ensure the current user has ownership of the application directory
-sudo chown -R ubuntu:ubuntu /home/ubuntu/nodejs-app
-
-echo "Installing dependencies..."
+echo "Installing application dependencies..."
+cd /home/ubuntu/nodejs-app || exit
 npm install
-
 
